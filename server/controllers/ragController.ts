@@ -6,9 +6,11 @@ export const loadData = async (_: Request, res: Response): Promise<void> => {
     await loadAllData();
     res.status(200).json({ ok: true });
   } catch (error) {
+    console.error('Error loading data:', error);
     res.status(500).json({
       answer: '',
       error: 'Failed to load data',
+      details: error instanceof Error ? error.message : String(error),
     });
   }
 };
@@ -30,9 +32,11 @@ export const askQuestion = async (
     const answer = await ask(userQuestion);
     res.status(200).json({ answer });
   } catch (error) {
+    console.error('Error answering question:', error);
     res.status(500).json({
       answer: '',
       error: 'Failed to get answer for question',
+      details: error instanceof Error ? error.message : String(error),
     });
   }
 };
