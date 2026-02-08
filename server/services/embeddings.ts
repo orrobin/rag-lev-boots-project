@@ -5,7 +5,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 // Constants
 export const CHUNK_SIZE = 400; // words
-export const EMBEDDING_MODEL = 'text-embedding-004';
+export const EMBEDDING_MODEL = 'gemini-embedding-001';
 
 // ============== CHUNKING ==============
 
@@ -31,7 +31,10 @@ export function chunkText(
 export async function generateEmbedding(text: string): Promise<number[]> {
   const model = genAI.getGenerativeModel({ model: EMBEDDING_MODEL });
 
-  const result = await model.embedContent(text);
+  const result = await model.embedContent({
+    content: { parts: [{ text }] },
+    outputDimensionality: 768,
+  });
   return result.embedding.values;
 }
 

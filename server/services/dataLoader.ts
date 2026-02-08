@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { createRequire } from 'module';
+import { PDF_FILES, ARTICLE_IDS } from '../config/constants.js';
 
 const require = createRequire(import.meta.url);
 const { PDFParse } = require('pdf-parse');
@@ -15,11 +16,7 @@ export async function loadPDFs(): Promise<
   { source_id: string; content: string }[]
 > {
   const pdfDir = path.join(__dirname, '..', 'knowledge_pdfs');
-  const pdfFiles = [
-    'OpEd - A Revolution at Our Feet.pdf',
-    'Research Paper - Gravitational Reversal Physics.pdf',
-    'White Paper - The Development of Localized Gravity Reversal Technology.pdf',
-  ];
+  const pdfFiles = PDF_FILES;
 
   const results: { source_id: string; content: string }[] = [];
 
@@ -45,13 +42,7 @@ export async function loadPDFs(): Promise<
 export async function loadArticles(): Promise<
   { source_id: string; content: string }[]
 > {
-  const articleIds = [
-    'military-deployment-report',
-    'urban-commuting',
-    'hover-polo',
-    'warehousing',
-    'consumer-safety',
-  ];
+  const articleIds = ARTICLE_IDS;
 
   const results: { source_id: string; content: string }[] = [];
 
